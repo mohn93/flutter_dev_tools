@@ -1,0 +1,44 @@
+name: flutter_dev_tools
+description: A versatile Flutter package providing an HTTP request logger for efficient network monitoring and debugging, setting the stage for an expanding suite of development and QA tools
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+  firebase_dynamic_links: ^5.4.4
+  hooks_riverpod: ^2.4.5
+  dio: ^5.3.3
+  gap: ^3.0.1
+  intl: ^0.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  plugin:
+    platforms:
+      android:
+        package: dev.beingthere.flutter_dev_tools
+        pluginClass: FlutterDevToolsPlugin
+      ios:
+        pluginClass: FlutterDevToolsPlugin
+      linux:
+        pluginClass: FlutterDevToolsPlugin
+      macos:
+        pluginClass: FlutterDevToolsPlugin
+      windows:
+        pluginClass: FlutterDevToolsPluginCApi
+      web:
+        pluginClass: FlutterDevToolsWeb
+        fileName: flutter_dev_tools_web.dart
