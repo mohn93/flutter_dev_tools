@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_platform_interface.dart';
 
-import 'flutter_dev_tools_platform_interface.dart';
 
 /// An implementation of [FlutterDevToolsPlatform] that uses method channels.
 class MethodChannelFlutterDevTools extends FlutterDevToolsPlatform {

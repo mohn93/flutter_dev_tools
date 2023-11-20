@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dev_tools/shared/alerts.dart';
 import 'package:flutter_dev_tools/tools/http_logger/entity/http_data.dart';
-import 'package:flutter_dev_tools/tools/http_logger/pretty_map.dart';
+import 'package:flutter_dev_tools/tools/http_logger/utils/pretty_map.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 

@@ -1,7 +1,7 @@
+import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_method_channel.dart';
+import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_dev_tools/flutter_dev_tools.dart';
-import 'package:flutter_dev_tools/flutter_dev_tools_platform_interface.dart';
-import 'package:flutter_dev_tools/flutter_dev_tools_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockFlutterDevToolsPlatform
