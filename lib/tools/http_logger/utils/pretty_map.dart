@@ -1,4 +1,3 @@
-
 /// Converts a [Map] into a formatted, human-readable string representation.
 ///
 /// This function recursively formats each entry of the map to create a visually
@@ -26,7 +25,6 @@ String prettyMap(Map<String, dynamic> map, {String indent = '  '}) {
   prettyString += '$indent}';
   return prettyString.trim();
 }
-
 
 /// Converts a [List] into a formatted, human-readable string representation.
 ///

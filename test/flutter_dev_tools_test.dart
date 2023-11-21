@@ -23,10 +23,12 @@ void main() {
       when(mockPlatform.diagnoseDynamicLinks())
           .thenAnswer((_) async => {'link1': true, 'link2': false});
 
-      expect(await tools.diagnoseDynamicLinks(), {'link1': true, 'link2': false});
+      expect(
+          await tools.diagnoseDynamicLinks(), {'link1': true, 'link2': false});
     });
 
-    testWidgets('openHttpLogger navigates to HTTPLoggerScreen', (WidgetTester tester) async {
+    testWidgets('openHttpLogger navigates to HTTPLoggerScreen',
+        (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MaterialApp(home: Scaffold(body: Builder(
         builder: (context) {
@@ -39,7 +41,8 @@ void main() {
 
       // Tap the button to open the logger.
       await tester.tap(find.byType(ElevatedButton));
-      await tester.pumpAndSettle(); // Wait for the navigation animation to complete.
+      await tester
+          .pumpAndSettle(); // Wait for the navigation animation to complete.
 
       // Verify that HTTPLoggerScreen is now present in the widget tree.
       expect(find.byType(HTTPLoggerScreen), findsOneWidget);

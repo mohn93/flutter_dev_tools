@@ -7,7 +7,6 @@ import 'package:flutter_dev_tools/tools/http_logger/entity/http_data.dart';
 /// single HTTP request-response pair. The logger has a maximum size to limit memory usage,
 /// after which older records are discarded as new ones are added.
 class InMemoryLogger {
-
   /// Constructs an instance of `InMemoryLogger`.
   ///
   /// - [maxSize]: The maximum number of `HTTPLoggerData` entries to store.

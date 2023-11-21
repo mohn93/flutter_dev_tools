@@ -9,6 +9,7 @@ class MethodChannelFlutterDevTools extends FlutterDevToolsPlatform {
   /// visible for testing purposes, allowing for easier testing of channel communication.
   @visibleForTesting
   final methodChannel = const MethodChannel('flutter_dev_tools');
+
   /// Asynchronously diagnoses dynamic links in the application.
   ///
   /// This method communicates with the native platform to analyze dynamic links,
