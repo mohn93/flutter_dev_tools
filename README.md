@@ -13,7 +13,7 @@ additional HTTP packages.
 
 |                                              Headers View                                              |                                              HTTP Logger                                               |
 |:------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
-| ![screenshot 2](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_2.png) | ![screenshot 1](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_1.png) |
+| ![screenshot 1](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_1.png) | ![screenshot 2](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_2.png) |
 
 )
 
