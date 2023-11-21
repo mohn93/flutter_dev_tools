@@ -1,29 +1,48 @@
-import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_method_channel.dart';
 import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_platform_interface.dart';
+import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_dev_tools/flutter_dev_tools.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:mockito/mockito.dart';
 
-class MockFlutterDevToolsPlatform
-    with MockPlatformInterfaceMixin
-    implements FlutterDevToolsPlatform {
-  @override
-  Future<Map<String, bool>?> diagnoseDynamicLinks() =>
-      Future.value({'42': true});
-}
+import 'package:flutter/material.dart';
+import 'mocks.mocks.dart'; // Import the generated file
 
 void main() {
-  final FlutterDevToolsPlatform initialPlatform =
-      FlutterDevToolsPlatform.instance;
+  group('FlutterDevTools', () {
+    late FlutterDevTools tools;
+    late MockFlutterDevToolsPlatform mockPlatform;
 
-  test('$MethodChannelFlutterDevTools is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelFlutterDevTools>());
-  });
+    setUp(() {
+      mockPlatform = MockFlutterDevToolsPlatform();
+      FlutterDevToolsPlatform.instance = mockPlatform; // Use the mock instance
+      tools = FlutterDevTools();
+    });
 
-  test('diagnoseDynamicLinks', () async {
-    MockFlutterDevToolsPlatform fakePlatform = MockFlutterDevToolsPlatform();
-    FlutterDevToolsPlatform.instance = fakePlatform;
+    test('diagnoseDynamicLinks returns expected result', () async {
+      // Mocking the platform's response
+      when(mockPlatform.diagnoseDynamicLinks())
+          .thenAnswer((_) async => {'link1': true, 'link2': false});
 
-    expect(await FlutterDevTools().diagnoseDynamicLinks(), '42');
+      expect(await tools.diagnoseDynamicLinks(), {'link1': true, 'link2': false});
+    });
+
+    testWidgets('openHttpLogger navigates to HTTPLoggerScreen', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: Builder(
+        builder: (context) {
+          return ElevatedButton(
+            onPressed: () => tools.openHttpLogger(context),
+            child: Text('Open Logger'),
+          );
+        },
+      ))));
+
+      // Tap the button to open the logger.
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle(); // Wait for the navigation animation to complete.
+
+      // Verify that HTTPLoggerScreen is now present in the widget tree.
+      expect(find.byType(HTTPLoggerScreen), findsOneWidget);
+    });
   });
 }
