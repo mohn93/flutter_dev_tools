@@ -1,6 +1,6 @@
 name: flutter_dev_tools
 description: A versatile Flutter package providing an HTTP request logger for efficient network monitoring and debugging, setting the stage for an expanding suite of development and QA tools
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/mohn93/flutter_dev_tools
 
 environment:
