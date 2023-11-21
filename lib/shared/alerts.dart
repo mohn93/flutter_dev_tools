@@ -32,7 +32,9 @@ class AppDevAlerts {
     showModalBottomSheet(
       useRootNavigator: true,
       isScrollControlled: true,
-      enableDrag: true,showDragHandle: true,isDismissible: true,
+      enableDrag: true,
+      showDragHandle: true,
+      isDismissible: true,
       context: context,
       builder: (context) {
         return SizedBox(
@@ -47,20 +49,24 @@ class AppDevAlerts {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                      if (title != null)
-                        Expanded(
-                          child: Text(
-                            title,
-                            style: Theme.of(context).textTheme.titleMedium,
+                      Row(
+                        children: [
+                          if (title != null)
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(
+                              Icons.close,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon:  Icon(Icons.close,color: Theme.of(context).colorScheme.onSurface,),
-                        ),
-
-                      ],),
+                        ],
+                      ),
                       const Gap(16),
                       widget,
                     ],

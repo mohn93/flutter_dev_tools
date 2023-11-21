@@ -1,7 +1,6 @@
 import 'package:flutter_dev_tools/platform_channels/flutter_dev_tools_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-
 abstract class FlutterDevToolsPlatform extends PlatformInterface {
   /// Constructs a FlutterDevToolsPlatform.
   FlutterDevToolsPlatform() : super(token: _token);
@@ -23,7 +22,7 @@ abstract class FlutterDevToolsPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<Map<String,bool>?> diagnoseDynamicLinks() {
+  Future<Map<String, bool>?> diagnoseDynamicLinks() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

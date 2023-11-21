@@ -7,13 +7,14 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockFlutterDevToolsPlatform
     with MockPlatformInterfaceMixin
     implements FlutterDevToolsPlatform {
-
   @override
-  Future<Map<String,bool>?> diagnoseDynamicLinks() => Future.value({'42': true});
+  Future<Map<String, bool>?> diagnoseDynamicLinks() =>
+      Future.value({'42': true});
 }
 
 void main() {
-  final FlutterDevToolsPlatform initialPlatform = FlutterDevToolsPlatform.instance;
+  final FlutterDevToolsPlatform initialPlatform =
+      FlutterDevToolsPlatform.instance;
 
   test('$MethodChannelFlutterDevTools is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelFlutterDevTools>());

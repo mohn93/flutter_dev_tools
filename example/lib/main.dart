@@ -20,7 +20,6 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -32,10 +31,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     // create requests to google and facebook to fill out the logger
     dio.get('https://google.com');
     dio.get('https://facebook.com');
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +53,12 @@ class _MyAppState extends ConsumerState<MyApp> {
                 child: const Text('Diagnose Dynamic Links'),
               ),
               const SizedBox(height: 16),
-              Builder(
-                builder: (context) {
-                  return TextButton(
-                    onPressed: () => FlutterDevTools().openHttpLogger(context),
-                    child: const Text('HTTP Logger'),
-                  );
-                }
-              ),
+              Builder(builder: (context) {
+                return TextButton(
+                  onPressed: () => FlutterDevTools().openHttpLogger(context),
+                  child: const Text('HTTP Logger'),
+                );
+              }),
             ],
           ),
         ),
