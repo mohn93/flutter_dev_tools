@@ -11,13 +11,15 @@ additional HTTP packages.
 - **HTTP Logger**: Intercepts HTTP requests in Dio and displays them in a
   user-friendly UI for easy monitoring and debugging.
 
-  ![screenshot 1](https://github.com/cedvdb/phone_form_field/tree/dev/res/http_logger_1.png)
-  ![screenshot 2](https://github.com/cedvdb/phone_form_field/tree/dev/res/http_logger_1.png)
+|                                              Headers View                                              |                                              HTTP Logger                                               |
+|:------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
+| ![screenshot 2](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_2.png) | ![screenshot 1](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_1.png) |
+
+)
 
 ## Getting Started
 
 To use the HTTP Logger with Dio, follow these steps:
-
 
 1. **Import Necessary Packages**:
 
