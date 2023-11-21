@@ -1,4 +1,6 @@
-class HTTPResponseData {
+import 'package:flutter_dev_tools/tools/http_logger/utils/pretty_map.dart';
+
+class HTTPResponseData<DataType> {
   HTTPResponseData({
     required this.headers,
     required this.statusCode,
@@ -9,15 +11,19 @@ class HTTPResponseData {
 
   final Map<String, dynamic> headers;
   final int statusCode;
-  final Map<String, dynamic> data;
+  final DataType data;
   final String? statusMessage;
   final String? error;
   final DateTime createdAt = DateTime.now();
 
+  String get prettyData => data is Map<String, dynamic>
+      ? prettyMap(data as Map<String, dynamic>)
+      : data.toString();
+
   HTTPResponseData copyWith({
     Map<String, dynamic>? headers,
     int? statusCode,
-    Map<String, dynamic>? data,
+    DataType? data,
     String? statusMessage,
     String? error,
   }) {
@@ -30,6 +36,7 @@ class HTTPResponseData {
     );
   }
 }
+
 class HTTPRequestData {
   HTTPRequestData({
     required this.headers,
@@ -62,6 +69,7 @@ class HTTPRequestData {
     );
   }
 }
+
 class HTTPLoggerData {
   HTTPLoggerData({
     required this.request,

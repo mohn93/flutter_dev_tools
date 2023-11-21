@@ -11,8 +11,10 @@ class HTTPDioLoggerInterceptor extends Interceptor {
   final InMemoryLogger logger;
 
   @override
-  void onRequest(RequestOptions options,
-      RequestInterceptorHandler handler,) {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) {
     try {
       final data = HTTPLoggerData(
         request: HTTPRequestData(
@@ -20,41 +22,44 @@ class HTTPDioLoggerInterceptor extends Interceptor {
           requestId: options.hashCode,
           uri: options.uri,
           method: options.method,
-          data: options.data,
+          data: options.data ?? {},
         ),
       );
       logger.add(data);
-    } catch (e) {
-      debugPrint('Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error: $e, StackTrace: $stackTrace');
     }
     handler.next(options);
   }
 
   @override
-  void onResponse(Response response,
-      ResponseInterceptorHandler handler,) {
+  void onResponse(
+    Response response,
+    ResponseInterceptorHandler handler,
+  ) {
     try {
       final data = logger.data.firstWhere(
-              (element) =>
-          element.requestId == response.requestOptions.hashCode);
+          (element) => element.requestId == response.requestOptions.hashCode);
       data.response = HTTPResponseData(
         headers: response.headers.map,
         statusCode: response.statusCode ?? 0,
-        data: response.data,
+        data: response.data ?? {},
         statusMessage: response.statusMessage,
       );
-    } catch (e) {
-      debugPrint('Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error: $e, StackTrace: $stackTrace');
     }
     handler.next(response);
   }
 
   @override
-  void onError(DioException err,
-      ErrorInterceptorHandler handler,) {
+  void onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) {
     try {
       final data = logger.data.firstWhere(
-              (element) => element.requestId == err.requestOptions.hashCode);
+          (element) => element.requestId == err.requestOptions.hashCode);
       data.response = HTTPResponseData(
         headers: err.response?.headers.map ?? {},
         statusCode: err.response?.statusCode ?? 0,
@@ -62,9 +67,9 @@ class HTTPDioLoggerInterceptor extends Interceptor {
         error: err.error.toString(),
         statusMessage: err.response?.statusMessage,
       );
-    } catch (e) {
-      debugPrint('Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('Error: $e, StackTrace: $stackTrace');
     }
-      handler.next(err);
-    }
+    handler.next(err);
   }
+}

@@ -210,20 +210,6 @@ class HttpLoggerListTile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // ExpansionTile(
-                  //   title: Text(
-                  //     'Body: ${data.response!.headers['content-type']} , ${data.response!.data.length} bytes',
-                  //     style: textTheme.labelSmall,
-                  //   ),
-                  //   childrenPadding:
-                  //       const EdgeInsetsDirectional.only(start: 16, end: 0),
-                  //   children: [
-                  //     Text(
-                  //       prettyMap(data.response!.data),
-                  //       style: textTheme.bodySmall,
-                  //     ),
-                  //   ],
-                  // ),
                   ListTile(
                     title: Text(
                       'Body: ${data.response!.headers['content-type']} , ${data.response!.data.length} bytes',
@@ -243,7 +229,7 @@ class HttpLoggerListTile extends StatelessWidget {
                         IconButton(
                           onPressed: () => AppDevAlerts.showBottomSheet(context,
                               title: 'Response Body',
-                              widget: Text(prettyMap(data.response!.data))),
+                              widget: Text(data.response!.prettyData)),
                           icon: const Icon(
                             Icons.remove_red_eye,
                             size: 16,

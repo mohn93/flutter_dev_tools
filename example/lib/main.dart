@@ -1,51 +1,41 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
+import 'package:flutter_dev_tools/shared/alerts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dev_tools/flutter_dev_tools.dart';
+import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
+import 'package:flutter_dev_tools/tools/http_logger/application/application.dart';
+
+Dio dio = Dio();
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  Map<String,bool> _platformVersion = <String,bool>{};
-  final _flutterDevToolsPlugin = FlutterDevTools();
+class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    dio.interceptors.add(
+      HTTPDioLoggerInterceptor(
+        logger: ref.read(httpLoggerProvider),
+      ),
+    );
+    // create requests to google and facebook to fill out the logger
+    dio.get('https://google.com');
+    dio.get('https://facebook.com');
+
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    Map<String,bool> platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _flutterDevToolsPlugin.diagnoseDynamicLinks() ?? {};
-    } on PlatformException {
-      platformVersion = {};
-    }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +45,28 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  AppDevAlerts.showInfoDialog(context,
+                      message: (await FlutterDevTools().diagnoseDynamicLinks())
+                          .toString());
+                },
+                child: const Text('Diagnose Dynamic Links'),
+              ),
+              const SizedBox(height: 16),
+              Builder(
+                builder: (context) {
+                  return TextButton(
+                    onPressed: () => FlutterDevTools().openHttpLogger(context),
+                    child: const Text('HTTP Logger'),
+                  );
+                }
+              ),
+            ],
+          ),
         ),
       ),
     );
