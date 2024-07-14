@@ -1,3 +1,7 @@
+## 0.0.5
+
+* pump up intl version to 0.19.0
+
 ## 0.0.4
 
 * Get down the intl version to 0.18.1
