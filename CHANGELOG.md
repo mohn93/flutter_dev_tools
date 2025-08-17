@@ -1,3 +1,7 @@
+## 0.0.7
+
+* remove Dynamic links
+
 ## 0.0.5
 
 * pump up intl version to 0.19.0
