@@ -60,14 +60,14 @@ class HTTPDioLoggerInterceptor extends Interceptor {
     ResponseInterceptorHandler handler,
   ) {
     try {
-      final data = logger.data.firstWhere(
-          (element) => element.requestId == response.requestOptions.hashCode);
-      data.response = HTTPResponseData(
-        headers: response.headers.map,
-        statusCode: response.statusCode ?? 0,
-        data: response.data ?? {},
-        statusMessage: response.statusMessage,
-      );
+      logger.setResponse(
+          response.requestOptions.hashCode,
+          HTTPResponseData(
+            headers: response.headers.map,
+            statusCode: response.statusCode ?? 0,
+            data: response.data ?? {},
+            statusMessage: response.statusMessage,
+          ));
     } catch (e, stackTrace) {
       debugPrint('Error: $e, StackTrace: $stackTrace');
     }
@@ -87,15 +87,15 @@ class HTTPDioLoggerInterceptor extends Interceptor {
     ErrorInterceptorHandler handler,
   ) {
     try {
-      final data = logger.data.firstWhere(
-          (element) => element.requestId == err.requestOptions.hashCode);
-      data.response = HTTPResponseData(
-        headers: err.response?.headers.map ?? {},
-        statusCode: err.response?.statusCode ?? 0,
-        data: err.response?.data ?? {},
-        error: err.error.toString(),
-        statusMessage: err.response?.statusMessage,
-      );
+      logger.setResponse(
+          err.requestOptions.hashCode,
+          HTTPResponseData(
+            headers: err.response?.headers.map ?? {},
+            statusCode: err.response?.statusCode ?? 0,
+            data: err.response?.data ?? {},
+            error: err.message ?? err.error?.toString(),
+            statusMessage: err.response?.statusMessage,
+          ));
     } catch (e, stackTrace) {
       debugPrint('Error: $e, StackTrace: $stackTrace');
     }

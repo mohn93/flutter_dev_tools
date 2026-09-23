@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dev_tools/shared/alerts.dart';
 import 'package:flutter_dev_tools/tools/http_logger/entity/http_data.dart';
-import 'package:flutter_dev_tools/tools/http_logger/utils/pretty_map.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
@@ -75,22 +74,9 @@ class HttpLoggerListTile extends StatelessWidget {
                     child: Column(
                       children: [
                         statusCode != null
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    statusCode.toString(),
-                                    style: TextStyle(
-                                      color: colorScheme.surface,
-                                    ),
-                                  ),
-                                  const Gap(4),
-                                  Icon(
-                                    Icons.info_outline,
-                                    color: colorScheme.outline,
-                                    size: 12,
-                                  ),
-                                ],
+                            ? Text(
+                                statusCode.toString(),
+                                style: TextStyle(color: colorScheme.surface),
                               )
                             : Icon(
                                 Icons.downloading_rounded,
@@ -140,10 +126,10 @@ class HttpLoggerListTile extends StatelessWidget {
                       ],
                     ),
                   ),
-                if (data.request.data.isNotEmpty)
+                if (data.request.hasBody)
                   ListTile(
                     title: Text(
-                      'Body: ${data.response!.headers['content-type']} , ${data.response!.data.length} bytes',
+                      'Body',
                       style: textTheme.labelSmall,
                     ),
                     trailing: Row(
@@ -160,7 +146,7 @@ class HttpLoggerListTile extends StatelessWidget {
                         IconButton(
                           onPressed: () => AppDevAlerts.showBottomSheet(context,
                               title: 'Request Body',
-                              widget: Text(prettyMap(data.request.data))),
+                              widget: Text(data.request.prettyData)),
                           icon: const Icon(
                             Icons.remove_red_eye,
                             size: 16,
@@ -292,7 +278,7 @@ class HttpLoggerListTile extends StatelessWidget {
         children: [
           Table(
             border: TableBorder.all(
-              color: colorScheme.onSurface.withOpacity(0.15),
+              color: colorScheme.onSurface.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(4),
             ),
             children: [
