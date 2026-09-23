@@ -5,23 +5,16 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
 import 'package:flutter_dev_tools_example/main.dart';
 
 void main() {
-  testWidgets('Verify Platform version', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that platform version is retrieved.
-    expect(
-      find.byWidgetPredicate(
-        (Widget widget) =>
-            widget is Text && widget.data!.startsWith('Running on:'),
-      ),
-      findsOneWidget,
-    );
+  testWidgets('opens HTTP logger from the example', (tester) async {
+    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+    await tester.tap(find.text('HTTP Logger'));
+    await tester.pumpAndSettle();
+    expect(find.byType(HTTPLoggerScreen), findsOneWidget);
   });
 }

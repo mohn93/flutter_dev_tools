@@ -1,44 +1,30 @@
 # flutter_dev_tools
 
-`flutter_dev_tools` is a Flutter package designed to assist developers and QA
-professionals in efficiently tracking and resolving issues. It currently
-features an HTTP Logger tool, which intercepts HTTP requests made using the Dio
-HTTP client and displays them in an intuitive UI. Future updates aim to support
-additional HTTP packages.
+A Flutter HTTP logger for Dio. It records requests, responses, and errors in memory and displays them in a screen inside your app.
 
-## Features
+| Headers view | HTTP logger |
+|:---:|:---:|
+| ![Headers view](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_1.png) | ![HTTP logger](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_2.png) |
 
-- **HTTP Logger**: Intercepts HTTP requests in Dio and displays them in a
-  user-friendly UI for easy monitoring and debugging.
+## Usage
 
-|                                              Headers View                                              |                                              HTTP Logger                                               |
-|:------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
-| ![screenshot 1](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_1.png) | ![screenshot 2](https://raw.githubusercontent.com/mohn93/flutter_dev_tools/main/res/http_logger_2.png) |
-
-)
-
-## Getting Started
-
-To use the HTTP Logger with Dio, follow these steps:
-
-1. **Import Necessary Packages**:
-
-   ```dart
-   import 'package:dio/dio.dart';
-   import 'package:flutter/material.dart';
-   import 'package:flutter_riverpod/flutter_riverpod.dart';
-   import 'package:flutter_dev_tools/flutter_dev_tools.dart';
-    ```
-
-2. **Initialize Dio and Add `HTTPDioLoggerInterceptor`:**:
+Wrap your app in `ProviderScope`, add the interceptor to your Dio instance, then open the logger screen from a widget:
 
 ```dart
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dev_tools/flutter_dev_tools.dart';
+import 'package:flutter_dev_tools/tools/http_logger/application/application.dart';
+import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
 
-Dio dio = Dio(); // Create Dio instance
+final dio = Dio();
+
+void main() => runApp(const ProviderScope(child: MyApp()));
 
 class MyApp extends ConsumerStatefulWidget {
-  // Your Flutter app class
-  // ...
+  const MyApp({super.key});
+
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
 }
@@ -47,51 +33,25 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    dio.interceptors.add(
-      HTTPDioLoggerInterceptor(
-        logger: ref.read(inMemoryLoggerProvider),
-      ),
-    );
-    // Example requests to populate the logger
-    dio.get('https://google.com');
-    dio.get('https://facebook.com');
+    dio.interceptors.add(HTTPDioLoggerInterceptor(
+      logger: ref.read(httpLoggerProvider),
+    ));
   }
-// ...
-}
-```
 
-3. **Access the HTTP Logger UI:**:
-
-```dart
-class _MyAppState extends ConsumerState<MyApp> {
-  // ...
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ...
-              TextButton(
+  Widget build(BuildContext context) => MaterialApp(
+        home: Scaffold(
+          body: Builder(
+            builder: (context) => Center(
+              child: TextButton(
                 onPressed: () => FlutterDevTools().openHttpLogger(context),
                 child: const Text('HTTP Logger'),
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 ```
 
-# Contributing
-
-Contributions to flutter_dev_tools are welcome. Whether it's expanding the
-current HTTP Logger tool, adding new features, or improving documentation, your
-input is valuable.
+The complete runnable example is in [`example`](example/).

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dev_tools/shared/alerts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dev_tools/flutter_dev_tools.dart';
 import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
@@ -28,29 +27,20 @@ class _MyAppState extends ConsumerState<MyApp> {
         logger: ref.read(httpLoggerProvider),
       ),
     );
-    // create requests to google and facebook to fill out the logger
-    dio.get('https://google.com');
-    dio.get('https://facebook.com');
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
+        appBar: AppBar(title: const Text('HTTP Logger example')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () async {
-                  AppDevAlerts.showInfoDialog(context,
-                      message: (await FlutterDevTools().diagnoseDynamicLinks())
-                          .toString());
-                },
-                child: const Text('Diagnose Dynamic Links'),
+                onPressed: () => dio.get('https://example.com'),
+                child: const Text('Send example request'),
               ),
               const SizedBox(height: 16),
               Builder(builder: (context) {

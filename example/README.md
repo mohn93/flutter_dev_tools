@@ -1,16 +1,5 @@
-# flutter_dev_tools_example
+# flutter_dev_tools example
 
-Demonstrates how to use the flutter_dev_tools plugin.
+This app demonstrates the Dio HTTP logger. Run it with `flutter run` from this directory, tap **Send example request**, then tap **HTTP Logger** to inspect the recorded request and response.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The example has no Firebase setup or credentials. Its automated checks are `flutter test` and `flutter test integration_test -d macos`.

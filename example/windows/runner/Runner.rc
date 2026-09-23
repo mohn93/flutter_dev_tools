@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "flutter_dev_tools_example" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "flutter_dev_tools_example" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 dev.beingthere. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 dev.beingthere. All rights reserved." "\0"
             VALUE "OriginalFilename", "flutter_dev_tools_example.exe" "\0"
             VALUE "ProductName", "flutter_dev_tools_example" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

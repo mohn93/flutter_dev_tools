@@ -5,10 +5,6 @@
 import FlutterMacOS
 import Foundation
 
-import firebase_core
-import flutter_dev_tools
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
-  FlutterDevToolsPlugin.register(with: registry.registrar(forPlugin: "FlutterDevToolsPlugin"))
 }

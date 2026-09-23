@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dev_tools/tools/http_logger/entity/http_data.dart';
 
 /// A logger that stores HTTP request and response data in memory.
@@ -6,7 +7,7 @@ import 'package:flutter_dev_tools/tools/http_logger/entity/http_data.dart';
 /// and debugging. It maintains a list of `HTTPLoggerData` instances, each representing a
 /// single HTTP request-response pair. The logger has a maximum size to limit memory usage,
 /// after which older records are discarded as new ones are added.
-class InMemoryLogger {
+class InMemoryLogger extends ChangeNotifier {
   /// Constructs an instance of `InMemoryLogger`.
   ///
   /// - [maxSize]: The maximum number of `HTTPLoggerData` entries to store.
@@ -29,6 +30,18 @@ class InMemoryLogger {
   void add(HTTPLoggerData data) {
     _data.add(data);
     if (_data.length > maxSize) _data.removeAt(0);
+    notifyListeners();
+  }
+
+  /// Records a response for a request that is still in the log.
+  void setResponse(int requestId, HTTPResponseData response) {
+    for (final entry in _data) {
+      if (entry.requestId == requestId) {
+        entry.response = response;
+        notifyListeners();
+        return;
+      }
+    }
   }
 
   /// A list of all `HTTPLoggerData` entries currently stored in the logger.

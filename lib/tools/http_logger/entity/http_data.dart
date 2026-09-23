@@ -61,9 +61,16 @@ class HTTPRequestData {
   final Map<String, dynamic> headers;
   final Uri uri;
   final String method;
-  final Map<String, dynamic> data;
+  final dynamic data;
   final int requestId;
   final DateTime createdAt = DateTime.now();
+
+  bool get hasBody =>
+      data != null && data.toString().isNotEmpty && data.toString() != '{}';
+
+  String get prettyData => data is Map<String, dynamic>
+      ? prettyMap(data as Map<String, dynamic>)
+      : data.toString();
 
   /// Creates a copy of this HTTPRequestData with the given parameters, allowing for modification
   /// of certain fields while keeping others from the original object.
@@ -71,7 +78,7 @@ class HTTPRequestData {
     Map<String, dynamic>? headers,
     Uri? uri,
     String? method,
-    Map<String, dynamic>? data,
+    dynamic data,
     int? requestId,
   }) {
     return HTTPRequestData(

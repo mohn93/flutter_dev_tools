@@ -8,17 +8,17 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-
-import 'package:flutter_dev_tools/flutter_dev_tools.dart';
+import 'package:flutter_dev_tools/tools/http_logger/ui/http_logger_screen.dart';
+import 'package:flutter_dev_tools_example/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
-    final FlutterDevTools plugin = FlutterDevTools();
-    final Map<String, dynamic>? version = await plugin.diagnoseDynamicLinks();
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+  testWidgets('opens the HTTP logger', (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+    await tester.tap(find.text('HTTP Logger'));
+    await tester.pumpAndSettle();
+    expect(find.byType(HTTPLoggerScreen), findsOneWidget);
   });
 }
