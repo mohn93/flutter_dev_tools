@@ -1,3 +1,8 @@
+## 0.0.9
+
+* `httpLoggerProvider` is a plain `Provider` again. Watching it no longer rebuilds dependents on every logged request or response. The logger screen still updates live.
+* If you relied on 0.0.8's rebuilds (e.g. `ref.watch(httpLoggerProvider)` for live data, or `httpLoggerProvider.notifier`), listen to the logger directly instead, e.g. with `ListenableBuilder(listenable: ref.watch(httpLoggerProvider), ...)`.
+
 ## 0.0.8
 
 * Remove the Firebase Dynamic Links diagnostics API and native plugin dependency.
