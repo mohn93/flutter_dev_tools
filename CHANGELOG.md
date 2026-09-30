@@ -1,3 +1,7 @@
+## 0.0.9
+
+* `httpLoggerProvider` is a plain `Provider` again. Watching it no longer rebuilds dependents on every logged request or response. The logger screen still updates live.
+
 ## 0.0.8
 
 * Remove the Firebase Dynamic Links diagnostics API and native plugin dependency.
